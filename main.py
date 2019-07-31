@@ -12,5 +12,6 @@ async def websocket_endpoint(websocket: WebSocket):
         data = await websocket.receive_json()
         if data.get("activate") is True:
             led = LED(17)
-            led.on()
+            if not led.is_active:
+                led.on()
             await websocket.send_json({"success": True})
